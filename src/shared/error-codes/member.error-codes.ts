@@ -4,6 +4,7 @@ export const MemberErrorCodes = {
   MISSING_COMMUNICANT_REQUIRED_FIELDS: 'Missing required fields for communicant admission.',
   INVALID_BIRTH_DATE: 'Invalid birth date.',
   INVALID_RECEPTION_DATE: 'Invalid reception date.',
+  INVALID_DELETE_CONFIRMATION: 'Invalid delete confirmation phrase.',
 } as const;
 
 export type MemberErrorCode = keyof typeof MemberErrorCodes;

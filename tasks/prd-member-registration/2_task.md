@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -28,8 +28,8 @@ Define DTOs and implement use cases for register, update, archive, restore, dele
 
 ## Subtasks
 
-- [ ] 2.1 Define `CreateMemberDTO`, `UpdateMemberDTO`, and `MemberView` DTOs
-- [ ] 2.2 Implement use cases: register, update, archive, restore, delete, changeClassification
+- [x] 2.1 Define `CreateMemberDTO`, `UpdateMemberDTO`, and `MemberView` DTOs
+- [x] 2.2 Implement use cases: register, update, archive, restore, delete, changeClassification
 
 ## Implementation Details
 
@@ -49,3 +49,12 @@ Reference Tech Spec: Implementation Design → Core Interfaces, Data Models.
 
 - All use cases return expected DTOs and errors.
 - No direct persistence logic in application layer.
+
+## Completion
+
+- [x] 2.0 Application DTOs and Write Use Cases ✅ COMPLETED
+  - [x] 2.1 Implementation completed
+  - [x] 2.2 Task definition, PRD, and tech spec validated
+  - [x] 2.3 Rules analysis and compliance verified
+  - [x] 2.4 Code review completed with Zen MCP
+  - [x] 2.5 Ready for next phase
