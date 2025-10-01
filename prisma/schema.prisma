@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hero {
+  heroId     String   @id @db.Uuid @map("hero_id")
+  name       String   @map("name")
+  power      Int      @map("power")
+  alive      Boolean  @map("alive")
+  createdAt  DateTime @default(now()) @db.Timestamptz(6) @map("created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @db.Timestamptz(6) @map("updated_at")
+
+  @@map("heroes")
+  @@index([name], map: "heroes_name_idx")
+}

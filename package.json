@@ -1,27 +1,42 @@
 {
-  "name": "ipt_web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.2"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "@eslint/eslintrc": "^3"
-  }
+    "name": "ipt_web",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "lint": "eslint",
+        "test": "vitest",
+        "build": "next build --turbopack",
+        "start": "next start",
+        "prisma": "prisma",
+        "prisma:studio": "prisma studio",
+        "prisma:migrate": "prisma migrate dev",
+        "prisma:generate": "prisma generate"
+    },
+    "dependencies": {
+        "clsx": "^2.1.0",
+        "next": "15.5.2",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "lucide-react": "^0.469.0",
+        "tailwind-merge": "^2.5.4",
+        "@prisma/client": "^6.16.2",
+        "@radix-ui/react-slot": "^1.1.2",
+        "@tanstack/react-query": "^5.63.1",
+        "class-variance-authority": "^0.7.0"
+    },
+    "devDependencies": {
+        "eslint": "^9",
+        "vitest": "^1.6.0",
+        "prisma": "^6.16.2",
+        "typescript": "^5",
+        "tailwindcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@eslint/eslintrc": "^3",
+        "@types/react-dom": "^19",
+        "eslint-config-next": "15.5.2",
+        "vite-tsconfig-paths": "^5.1.0",
+        "@tailwindcss/postcss": "^4"
+    }
 }

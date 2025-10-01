@@ -1,0 +1,66 @@
+---
+alwaysApply: false
+---
+
+# SQL Database Standards
+
+This project currently has no database dependency configured. If/when a SQL database is introduced, apply the following standards.
+
+## Database Connection
+
+- Prefer lightweight clients compatible with Node
+- Use environment variables for connection configuration
+
+## Naming Conventions
+
+### Tables and Columns
+
+- English names in plural form
+- `snake_case` for tables and columns
+- Examples: `users`, `customer_orders`, `payment_methods`
+
+### Primary and Foreign Keys
+
+- `<singular>_id` pattern
+- Examples: `user_id`, `order_id`, `payment_id`
+
+## SQL Query Standards
+
+### Keywords
+
+- Use UPPERCASE for SQL keywords
+
+### Joins
+
+- Use explicit `JOIN` syntax; prefer `USING` where possible
+
+### Select Statements
+
+- Avoid `SELECT *` in production; specify columns explicitly
+
+## Data Types
+
+- Strings: `TEXT`
+- Numbers: `INT` or `NUMERIC`
+- Time: `TIMESTAMPTZ`
+
+## Performance
+
+- Index searchable/filterable columns
+- Use `GROUP BY` and `ORDER BY` explicitly with direction
+
+## Security
+
+- Always use prepared statements
+- Never interpolate raw inputs into SQL strings
+
+## Table Design
+
+### Required Columns
+
+- `created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+- `updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()`
+
+## Migrations
+
+- Every change requires an up and down migration

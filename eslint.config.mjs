@@ -8,7 +8,6 @@ const __dirname = dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
-
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
@@ -19,6 +18,18 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      "max-len": "off",
+      "@stylistic/max-len": [
+        "error",
+        {
+          code: 150,
+          tabWidth: 2,
+          ignoreUrls: true,
+          ignoreComments: true,
+        },
+      ],
+    },
   },
 ];
 

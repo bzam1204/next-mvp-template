@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Hero Template – Next.js Monolith (App Router)
 
-## Getting Started
+This repository contains a domain-first template for MVPs built with Next.js App Router, Prisma and PostgreSQL. The sample "Hero" aggregate demonstrates the complete slice: Server Actions → Use Cases → Prisma repositories → Domain events → Event bus → UI (React Query + shadcn/ui).
 
-First, run the development server:
+## Quickstart
 
 ```bash
+cd ipt_web
+cp .env.example .env
+docker-compose up -d postgres
+npm install
+npx prisma migrate dev
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to explore the Hero playground. Creating, renaming or level-up actions trigger domain events that are streamed to the in-memory event log and rendered live in the UI.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/domain`: aggregates, value objects, domain events (Hero emits `HeroCreated`, `HeroRenamed`, `HeroLeveledUp`).
+- `src/application`: use cases and queries (CQRS). Transactions go through `UnitOfWork` and always return DTO/View models.
+- `src/infrastructure`: Prisma adapters, Server Actions (controllers), React Query hooks, EventBus + EventLog bridge, DI container.
+- `src/app`: Next.js routes and pages. `app/page.tsx` shows the full template using shadcn/ui components.
+- `prisma/`: schema and migrations. Update `prisma/schema.prisma` and run `npx prisma migrate dev` when evolving the data model.
 
-## Learn More
+## Domain Flow (Hero Example)
 
-To learn more about Next.js, take a look at the following resources:
+1. UI triggers a Server Action (e.g., `createHeroAction`).
+2. Action resolves the use case via DI container (`CreateHeroUseCase`).
+3. Use case runs inside `PrismaUnitOfWork`; repositories persist aggregates; domain events are collected.
+4. After commit, `EventBus.publish` forwards events to subscribers and the `InMemoryEventLog`.
+5. React Query hooks refetch hero lists and the event feed, keeping UI state in sync.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the unit tests (domain + application slices):
 
-## Deploy on Vercel
+```bash
+npm run test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Hero entity and the `CreateHeroUseCase` have sample specs under `src/domain/**/*.spec.ts` and `src/application/**/*.spec.ts`. Use the same pattern when adding new aggregates/use cases.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Adding New Features
+
+1. Model aggregates/events under `src/domain`.
+2. Extend Prisma schema and generate migrations.
+3. Implement repositories + queries in `src/infrastructure` (Prisma adapters).
+4. Create use cases/queries returning DTOs in `src/application`.
+5. Register everything in the DI container (`src/infrastructure/container`).
+6. Expose Server Actions + React Query hooks, then compose UI with shadcn components.
+
+Refer to the docs in `rules/` for architecture decisions (DDD, CQRS, Server Actions, layering) while expanding this template.
