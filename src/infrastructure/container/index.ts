@@ -8,6 +8,7 @@ import RenameHeroUseCase from "@/application/use-cases/hero/rename-hero.use-case
 import LevelUpHeroUseCase from "@/application/use-cases/hero/level-up-hero.use-case";
 import type { UnitOfWork } from "@/domain/services/unit-of-work";
 import type HeroRepository from "@/domain/repositories/hero.repository";
+import type MemberRepository from "@/domain/repositories/member.repository";
 
 import IdGenerator from "@/application/services/id-generator.service";
 
@@ -19,6 +20,7 @@ import UuidIdGenerator from "@/infrastructure/services/uuid-id-generator.service
 import PrismaUnitOfWork from "@/infrastructure/uow/prisma-unit-of-work";
 import DefaultQueryService from "@/infrastructure/services/default-query.service";
 import PrismaHeroRepository from "@/infrastructure/repositories/prisma/hero.repository.prisma";
+import PrismaMemberRepository from "@/infrastructure/repositories/prisma/member.repository.prisma";
 
 import  HeroMapper from "@/shared/mappers/hero.mapper";
 import { QueryTokens, type QueryToken } from "@/shared/constants/query-constants";
@@ -71,6 +73,12 @@ container.registerSingleton<PrismaUnitOfWork>(ServiceTokens.UnitOfWork, (c) => {
 container.registerSingleton<HeroRepository>(RepositoryTokens.HeroRepository, (c) => {
     const uow = c.resolve<PrismaUnitOfWork>(ServiceTokens.UnitOfWork);
     const repo = new PrismaHeroRepository(() => uow.getClient());
+    return repo;
+});
+
+container.registerSingleton<MemberRepository>(RepositoryTokens.MemberRepository, (c) => {
+    const uow = c.resolve<PrismaUnitOfWork>(ServiceTokens.UnitOfWork);
+    const repo = new PrismaMemberRepository(() => uow.getClient());
     return repo;
 });
 
