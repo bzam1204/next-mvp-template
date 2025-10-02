@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -26,8 +26,8 @@ Design and add the Prisma `Member` model, enums (classification, status), and ne
 
 ## Subtasks
 
-- [ ] 4.1 Update `schema.prisma` with `Member` model and enums
-- [ ] 4.2 Create migration and verify constraints and indexes
+- [x] 4.1 Update `schema.prisma` with `Member` model and enums
+- [x] 4.2 Create migration and verify constraints and indexes
 
 ## Implementation Details
 
@@ -48,3 +48,8 @@ Tech Spec: Data Models, Persistence; Known Risks (query performance); Integratio
 - Migration applies successfully; schema reflects all required fields.
 - Indexes present for search performance.
 
+## Completion
+
+- [x] 4.0 Prisma Schema, Migration, and Indexes ✅ COMPLETED
+  - [x] 4.1 Update `schema.prisma` with `Member` model and enums
+  - [x] 4.2 Create migration and verify constraints and indexes

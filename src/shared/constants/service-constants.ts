@@ -9,6 +9,12 @@ export const ServiceTokens = {
     CreateHeroUseCase: Symbol("CreateHeroUseCase"),
     RenameHeroUseCase: Symbol("RenameHeroUseCase"),
     LevelUpHeroUseCase: Symbol("LevelUpHeroUseCase"),
+    RegisterMemberUseCase: Symbol("RegisterMemberUseCase"),
+    UpdateMemberUseCase: Symbol("UpdateMemberUseCase"),
+    ArchiveMemberUseCase: Symbol("ArchiveMemberUseCase"),
+    RestoreMemberUseCase: Symbol("RestoreMemberUseCase"),
+    DeleteMemberPermanentlyUseCase: Symbol("DeleteMemberPermanentlyUseCase"),
+    ChangeMemberClassificationUseCase: Symbol("ChangeMemberClassificationUseCase"),
 } as const;
 
 export type ServiceToken = (typeof ServiceTokens)[ServiceTokenKeys];

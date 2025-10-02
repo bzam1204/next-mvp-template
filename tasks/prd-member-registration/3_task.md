@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -26,8 +26,8 @@ Implement read-side query interfaces and Prisma-backed implementations for pagin
 
 ## Subtasks
 
-- [ ] 3.1 Define `SearchMembersQuery` and `GetMemberByIdQuery` interfaces
-- [ ] 3.2 Implement Prisma queries with proper indexing considerations
+- [x] 3.1 Define `SearchMembersQuery` and `GetMemberByIdQuery` interfaces
+- [x] 3.2 Implement Prisma queries with proper indexing considerations
 
 ## Implementation Details
 
@@ -49,3 +49,8 @@ Tech Spec: Implementation Design → Core Interfaces; Data Models; Integration P
 - Search returns expected pagination and filtering results.
 - Detail query returns full `MemberView` or null.
 
+## Completion
+
+- [x] 3.0 Read Queries (Search and Detail) ✅ COMPLETED
+  - [x] 3.1 Define `SearchMembersQuery` and `GetMemberByIdQuery` interfaces
+  - [x] 3.2 Implement Prisma queries with proper indexing considerations

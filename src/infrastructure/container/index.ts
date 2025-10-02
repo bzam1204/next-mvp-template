@@ -6,6 +6,14 @@ import type QueryService from "@/application/services/query.service";
 import CreateHeroUseCase from "@/application/use-cases/hero/create-hero.use-case";
 import RenameHeroUseCase from "@/application/use-cases/hero/rename-hero.use-case";
 import LevelUpHeroUseCase from "@/application/use-cases/hero/level-up-hero.use-case";
+import type SearchMembersQuery from "@/application/queries/member/search-members.query";
+import type GetMemberByIdQuery from "@/application/queries/member/get-member-by-id.query";
+import RegisterMemberUseCase from "@/application/use-cases/member/register-member.use-case";
+import UpdateMemberUseCase from "@/application/use-cases/member/update-member.use-case";
+import ArchiveMemberUseCase from "@/application/use-cases/member/archive-member.use-case";
+import RestoreMemberUseCase from "@/application/use-cases/member/restore-member.use-case";
+import DeleteMemberPermanentlyUseCase from "@/application/use-cases/member/delete-member-permanently.use-case";
+import ChangeMemberClassificationUseCase from "@/application/use-cases/member/change-member-classification.use-case";
 import type { UnitOfWork } from "@/domain/services/unit-of-work";
 import type HeroRepository from "@/domain/repositories/hero.repository";
 import type MemberRepository from "@/domain/repositories/member.repository";
@@ -16,6 +24,8 @@ import { prisma } from "@/infrastructure/db/prisma";
 import InfraEventBus from "@/infrastructure/events/event-bus";
 import { InMemoryEventLog } from "@/infrastructure/events/in-memory-event-log";
 import PrismaHeroQuery from "@/infrastructure/queries/prisma/hero/hero.query.prisma";
+import PrismaSearchMembersQuery from "@/infrastructure/queries/prisma/member/prisma-search-members.query";
+import PrismaGetMemberByIdQuery from "@/infrastructure/queries/prisma/member/prisma-get-member-by-id.query";
 import UuidIdGenerator from "@/infrastructure/services/uuid-id-generator.service";
 import PrismaUnitOfWork from "@/infrastructure/uow/prisma-unit-of-work";
 import DefaultQueryService from "@/infrastructure/services/default-query.service";
@@ -88,6 +98,18 @@ container.registerSingleton<HeroQuery>(QueryTokens.HeroQuery, (c) => {
     return query;
 });
 
+container.registerSingleton<SearchMembersQuery>(QueryTokens.SearchMembersQuery, (c) => {
+    const client = c.resolve<typeof prisma>(ServiceTokens.PrismaClient);
+    const query = new PrismaSearchMembersQuery(() => client);
+    return query;
+});
+
+container.registerSingleton<GetMemberByIdQuery>(QueryTokens.GetMemberByIdQuery, (c) => {
+    const client = c.resolve<typeof prisma>(ServiceTokens.PrismaClient);
+    const query = new PrismaGetMemberByIdQuery(() => client);
+    return query;
+});
+
 container.registerSingleton<QueryService>(ServiceTokens.QueryService, (c) => {
     const heroQuery = c.resolve<HeroQuery>(QueryTokens.HeroQuery);
     const service = new DefaultQueryService(heroQuery);
@@ -115,6 +137,55 @@ container.registerSingleton<LevelUpHeroUseCase>(ServiceTokens.LevelUpHeroUseCase
     const useCase = new LevelUpHeroUseCase(
         c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
         () => c.resolve<HeroRepository>(RepositoryTokens.HeroRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<RegisterMemberUseCase>(ServiceTokens.RegisterMemberUseCase, (c) => {
+    const useCase = new RegisterMemberUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        c.resolve<IdGenerator>(ServiceTokens.IdGenerator),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<UpdateMemberUseCase>(ServiceTokens.UpdateMemberUseCase, (c) => {
+    const useCase = new UpdateMemberUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<ArchiveMemberUseCase>(ServiceTokens.ArchiveMemberUseCase, (c) => {
+    const useCase = new ArchiveMemberUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<RestoreMemberUseCase>(ServiceTokens.RestoreMemberUseCase, (c) => {
+    const useCase = new RestoreMemberUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<DeleteMemberPermanentlyUseCase>(ServiceTokens.DeleteMemberPermanentlyUseCase, (c) => {
+    const useCase = new DeleteMemberPermanentlyUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
+    );
+    return useCase;
+});
+
+container.registerSingleton<ChangeMemberClassificationUseCase>(ServiceTokens.ChangeMemberClassificationUseCase, (c) => {
+    const useCase = new ChangeMemberClassificationUseCase(
+        c.resolve<UnitOfWork>(ServiceTokens.UnitOfWork),
+        () => c.resolve<MemberRepository>(RepositoryTokens.MemberRepository),
     );
     return useCase;
 });

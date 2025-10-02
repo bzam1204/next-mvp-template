@@ -40,9 +40,9 @@
 ## Tasks
 
 - [X] 1.0 Domain: Member aggregate and invariants
-- [ ] 2.0 Application: DTOs and write use cases
-- [ ] 3.0 Application: Read queries (search/detail)
-- [ ] 4.0 Persistence: Prisma schema + migration + indexes
+- [X] 2.0 Application: DTOs and write use cases
+- [X] 3.0 Application: Read queries (search/detail)
+- [X] 4.0 Persistence: Prisma schema + migration + indexes
 - [ ] 5.0 Infrastructure: Repository, UoW, EventBus
 - [ ] 6.0 DI: Container registrations for ports
 - [ ] 7.0 Controllers: Server Actions (CRUD, status)
