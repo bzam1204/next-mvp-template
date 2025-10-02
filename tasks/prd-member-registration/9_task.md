@@ -1,5 +1,4 @@
----
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -26,8 +25,8 @@ Create hooks to call Server Actions and manage caching for create/update/archive
 
 ## Subtasks
 
-- [ ] 9.1 Implement `useSearchMembers` and `useMemberById`
-- [ ] 9.2 Implement mutation hooks for CRUD and classification changes
+- [X] 9.1 Implement `useSearchMembers` and `useMemberById`
+- [X] 9.2 Implement mutation hooks for CRUD and classification changes
 
 ## Implementation Details
 
@@ -46,4 +45,3 @@ Tech Spec: System Architecture; Caching; Standards Compliance (no fetch in hooks
 
 - Hooks return typed data and status; invalidations update UI as expected.
 - Minimal re-renders under typical usage.
-
