@@ -17,12 +17,12 @@ export class RegisterMemberUseCase {
   public async execute(input: CreateMemberInput): Promise<MemberView> {
     const output = await this.unitOfWork.runInTransaction(async () => {
       const member = Member.create({
+        sex: input.sex,
         memberId: this.idGenerator.generate(),
         fullName: input.fullName,
         email: input.email ?? null,
         phone: input.phone ?? null,
         cpf: input.cpf ?? null,
-        sex: input.sex,
         address: input.address,
         literacy: input.literacy,
         birthDate: input.birthDate,
