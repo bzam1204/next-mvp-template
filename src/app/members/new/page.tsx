@@ -7,6 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { useRegisterMember } from '@/infrastructure/hooks/members/use-register-member';
 
@@ -49,6 +50,7 @@ export default function NewMemberPage() {
                     </Button>
                     <h1 className="text-2xl font-semibold">Novo membro</h1>
                 </div>
+                <ThemeToggle />
             </div>
 
             <Card className="border-sky-200 dark:border-sky-900">

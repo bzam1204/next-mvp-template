@@ -11,6 +11,7 @@ export interface MemberView {
   celebrant: string;
   profession: string;
   placeOfBirth: string;
+  //todo: add 'união estável' option
   maritalStatus: 'single' | 'married' | 'divorced' | 'widowed';
   classification: 'communicant' | 'non-communicant';
   baptizedInInfancy: boolean;

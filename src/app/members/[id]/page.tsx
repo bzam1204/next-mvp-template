@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -89,6 +90,9 @@ export default function MemberDetailPage() {
     if (!memberId) {
         return (
             <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-10">
+                <div className="flex justify-end">
+                    <ThemeToggle />
+                </div>
                 <Card>
                     <CardHeader>
                         <CardTitle>Membro não encontrado</CardTitle>
@@ -106,7 +110,7 @@ export default function MemberDetailPage() {
 
     return (
         <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-6 py-10">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                     <Button asChild variant="ghost" size="sm" className="gap-2">
                         <Link href="/members">
@@ -115,11 +119,14 @@ export default function MemberDetailPage() {
                     </Button>
                     <h1 className="text-2xl font-semibold">Ficha do membro</h1>
                 </div>
-                {member ? (
-                    <Button asChild variant="secondary" size="sm" className="gap-2">
-                        <Link href={`/members/${member.id}/edit`}>Editar dados</Link>
-                    </Button>
-                ) : null}
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                    <ThemeToggle />
+                    {member ? (
+                        <Button asChild variant="secondary" size="sm" className="gap-2">
+                            <Link href={`/members/${member.id}/edit`}>Editar dados</Link>
+                        </Button>
+                    ) : null}
+                </div>
             </div>
 
             {isLoading ? (
