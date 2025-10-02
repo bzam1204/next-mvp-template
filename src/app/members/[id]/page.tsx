@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
@@ -11,6 +11,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 import { useMemberById } from '@/infrastructure/hooks/members/use-member-by-id';
 import { useArchiveMember } from '@/infrastructure/hooks/members/use-archive-member';
@@ -35,13 +46,21 @@ export default function MemberDetailPage() {
     const archiveMember = useArchiveMember();
     const restoreMember = useRestoreMember();
     const changeClassification = useChangeMemberClassification();
-    const deleteMember = useDeleteMemberPermanently();
+    const { reset: resetDeleteMember, ...deleteMember } = useDeleteMemberPermanently();
 
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [deleteInput, setDeleteInput] = useState('');
 
     const isBusy = archiveMember.isPending || restoreMember.isPending || changeClassification.isPending || deleteMember.isPending;
     const deleteExpectedPhrase = useMemo(() => (member ? `DELETE ${member.id}` : ''), [member]);
     const deleteDisabled = !member || deleteInput.trim() !== deleteExpectedPhrase || deleteMember.isPending;
+
+    useEffect(() => {
+        if (!deleteDialogOpen) {
+            setDeleteInput('');
+            resetDeleteMember();
+        }
+    }, [deleteDialogOpen, resetDeleteMember]);
 
     const handleArchiveToggle = useCallback(async () => {
         if (!member) return;
@@ -63,6 +82,7 @@ export default function MemberDetailPage() {
     const handleDelete = useCallback(async () => {
         if (!member) return;
         await deleteMember.mutateAsync({ memberId: member.id, confirm: deleteInput.trim() });
+        setDeleteDialogOpen(false);
         router.replace('/members');
     }, [deleteInput, deleteMember, member, router]);
 
@@ -234,33 +254,58 @@ export default function MemberDetailPage() {
                                 <Trash2 className="h-5 w-5" /> Exclusão permanente
                             </CardTitle>
                             <CardDescription>
-                                Esta ação não pode ser desfeita. Digite <code className="rounded bg-red-100 px-1 py-0.5 text-xs text-red-600">{deleteExpectedPhrase}</code> para liberar a exclusão definitiva.
+                                Esta ação não pode ser desfeita. Para continuar, confirme digitando <code className="rounded bg-red-100 px-1 py-0.5 text-xs text-red-600">{deleteExpectedPhrase}</code> na caixa de confirmação.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-2">
-                                <Label htmlFor="delete-confirm">Confirmação</Label>
-                                <Input
-                                    id="delete-confirm"
-                                    value={deleteInput}
-                                    onChange={(event) => setDeleteInput(event.target.value)}
-                                    disabled={deleteMember.isPending}
-                                    placeholder={deleteExpectedPhrase}
-                                />
-                            </div>
-                            {deleteMember.error ? (
-                                <p className="text-sm text-red-500">{deleteMember.error.message}</p>
-                            ) : null}
-                            <div className="flex justify-end">
-                                <Button
-                                    variant="destructive"
-                                    onClick={handleDelete}
-                                    disabled={deleteDisabled}
-                                    className="gap-2"
-                                >
-                                    <Trash2 className="h-4 w-4" /> Excluir permanentemente
-                                </Button>
-                            </div>
+                            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                                <AlertDialogTrigger asChild>
+                                    <Button
+                                        variant="destructive"
+                                        className="gap-2 self-end"
+                                        disabled={!member || deleteMember.isPending || isBusy}
+                                    >
+                                        <Trash2 className="h-4 w-4" /> Excluir permanentemente
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Confirm permanent deletion</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action removes the member permanently and cannot be undone. Type the exact phrase <span className="font-semibold">{deleteExpectedPhrase}</span> to proceed.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <div className="flex flex-col gap-2">
+                                        <Label htmlFor="delete-confirm-dialog">Confirmation</Label>
+                                        <Input
+                                            id="delete-confirm-dialog"
+                                            value={deleteInput}
+                                            autoComplete="off"
+                                            onChange={(event) => setDeleteInput(event.target.value)}
+                                            disabled={deleteMember.isPending}
+                                            placeholder={deleteExpectedPhrase}
+                                        />
+                                    </div>
+                                    {deleteMember.error ? (
+                                        <p className="text-sm text-red-500">{deleteMember.error.message}</p>
+                                    ) : null}
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel asChild>
+                                            <Button variant="secondary">Cancel</Button>
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction asChild>
+                                            <Button
+                                                variant="destructive"
+                                                className="gap-2"
+                                                onClick={handleDelete}
+                                                disabled={deleteDisabled}
+                                            >
+                                                <Trash2 className="h-4 w-4" /> Permanently delete
+                                            </Button>
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </CardContent>
                     </Card>
                 </>
