@@ -48,7 +48,7 @@
 - [X] 7.0 Controllers: Server Actions (CRUD, status)
 - [X] 8.0 Caching: QueryKeys + invalidations
 - [X] 9.0 Hooks: React Query hooks (CRUD/search/detail)
-- [ ] 10.0 UI: Pages (list/detail/forms) + UX
+- [X] 10.0 UI: Pages (list/detail/forms) + UX
 - [ ] 11.0 Hard Delete: Two-step confirmation UX + enforcement
 
 Out of scope in this phase: Testing (Task 12.0 is excluded)

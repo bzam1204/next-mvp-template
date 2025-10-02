@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 <task_context>
 `<domain>`src/app `</domain>`
@@ -25,8 +25,8 @@ Build pages for member list with filters and pagination, member detail, and form
 
 ## Subtasks
 
-- [ ] 10.1 Implement `/members` page (filters, pagination, actions)
-- [ ] 10.2 Implement `/members/[id]` detail and `/members/new` + `/members/[id]/edit` forms
+- [x] 10.1 Implement `/members` page (filters, pagination, actions)
+- [x] 10.2 Implement `/members/[id]` detail and `/members/new` + `/members/[id]/edit` forms
 
 ## Implementation Details
 
