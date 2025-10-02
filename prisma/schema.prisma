@@ -7,6 +7,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum MemberClassification {
+  communicant
+  nonCommunicant @map("non-communicant")
+}
+
+enum MemberVisibilityStatus {
+  active
+  archived
+}
+
+enum MemberSex {
+  male
+  female
+}
+
+enum MemberMaritalStatus {
+  single
+  married
+  divorced
+  widowed
+}
+
+enum MemberReceptionMode {
+  profession_of_faith
+  transfer
+  restoration
+}
+
 model Hero {
   heroId     String   @id @db.Uuid @map("hero_id")
   name       String   @map("name")
@@ -17,4 +45,41 @@ model Hero {
 
   @@map("heroes")
   @@index([name], map: "heroes_name_idx")
+}
+
+model Member {
+  memberId            String                 @id @db.Uuid @map("member_id")
+  fullName            String                 @map("full_name")
+  email               String?                @map("email")
+  phone               String?                @map("phone")
+  cpf                 String?                @map("cpf")
+  profile             String?                @map("profile")
+  classification      MemberClassification   @map("classification")
+  status              MemberVisibilityStatus @map("status")
+  sex                 MemberSex              @map("sex")
+  maritalStatus       MemberMaritalStatus    @map("marital_status")
+  birthDate           DateTime               @db.Date @map("birth_date")
+  placeOfBirth        String                 @map("place_of_birth")
+  literacy            Boolean                @map("literacy")
+  profession          String                 @map("profession")
+  religiousBackground String                 @map("religious_background")
+  baptizedInInfancy   Boolean                @map("baptized_in_infancy")
+  receptionDate       DateTime               @db.Date @map("reception_date")
+  receptionMode       MemberReceptionMode    @map("reception_mode")
+  receptionLocation   String                 @map("reception_location")
+  celebrant           String                 @map("celebrant")
+  addressStreet       String                 @map("address_street")
+  addressNumber       String?                @map("address_number")
+  addressDistrict     String?                @map("address_district")
+  addressCity         String                 @map("address_city")
+  addressState        String?                @map("address_state")
+  addressZip          String?                @map("address_zip")
+  addressComplement   String?                @map("address_complement")
+  createdAt           DateTime               @default(now()) @db.Timestamptz(6) @map("created_at")
+  updatedAt           DateTime               @default(now()) @updatedAt @db.Timestamptz(6) @map("updated_at")
+
+  @@map("members")
+  @@index([fullName], map: "members_full_name_idx")
+  @@index([status], map: "members_status_idx")
+  @@index([profile], map: "members_profile_idx")
 }
