@@ -1,13 +1,12 @@
 ---
-status: pending
+status: completed
 ---
-
 <task_context>
-<domain>engine/infra/persistence</domain>
-<type>implementation</type>
-<scope>core_feature</scope>
-<complexity>medium</complexity>
-<dependencies>database</dependencies>
+`<domain>`engine/infra/persistence`</domain>`
+`<type>`implementation`</type>`
+`<scope>`core_feature`</scope>`
+`<complexity>`medium`</complexity>`
+`<dependencies>`database`</dependencies>`
 </task_context>
 
 # Task 5.0: Repository, Unit of Work, and Event Bus
@@ -16,7 +15,7 @@ status: pending
 
 Implement Prisma repository for `Member`, Unit of Work abstraction wrapping transactions, and a simple Event Bus to publish domain events post-commit.
 
-<import>**MUST READ BEFORE STARTING** @.cursor/rules/critical-validation.mdc</import>
+`<import>`**MUST READ BEFORE STARTING** @.cursor/rules/critical-validation.mdc`</import>`
 
 <requirements>
 - Repository implements save/find/delete for `Member` aggregate.
@@ -26,8 +25,8 @@ Implement Prisma repository for `Member`, Unit of Work abstraction wrapping tran
 
 ## Subtasks
 
-- [ ] 5.1 Implement `PrismaMemberRepository`
-- [ ] 5.2 Add `UnitOfWork` and event publication on commit
+- [X] 5.1 Implement `PrismaMemberRepository`
+- [X] 5.2 Add `UnitOfWork` and event publication on commit
 
 ## Implementation Details
 
@@ -48,4 +47,3 @@ Tech Spec: System Architecture (UoW, events), Integration Points, Monitoring & O
 
 - Repository methods persist and retrieve aggregates reliably.
 - Events emitted by aggregate are published post-commit.
-

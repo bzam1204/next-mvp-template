@@ -32,7 +32,7 @@ import DefaultQueryService from "@/infrastructure/services/default-query.service
 import PrismaHeroRepository from "@/infrastructure/repositories/prisma/hero.repository.prisma";
 import PrismaMemberRepository from "@/infrastructure/repositories/prisma/member.repository.prisma";
 
-import  HeroMapper from "@/shared/mappers/hero.mapper";
+import HeroMapper from "@/shared/mappers/hero.mapper";
 import { QueryTokens, type QueryToken } from "@/shared/constants/query-constants";
 import { ServiceTokens, type ServiceToken } from "@/shared/constants/service-constants";
 import { RepositoryTokens, type RepositoryToken } from "@/shared/constants/repository-constants";

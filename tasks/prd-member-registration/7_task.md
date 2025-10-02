@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -26,8 +26,8 @@ Create Server Actions for register, update, archive, restore, delete (with confi
 
 ## Subtasks
 
-- [ ] 7.1 Implement actions: register/update/changeClassification
-- [ ] 7.2 Implement actions: archive/restore/delete + search/getById
+- [X] 7.1 Implement actions: register/update/changeClassification
+- [X] 7.2 Implement actions: archive/restore/delete + search/getById
 
 ## Implementation Details
 
@@ -47,4 +47,3 @@ Tech Spec: Core Interfaces; Integration Points; Error handling; Hard delete spec
 - All actions return correct DTOs and status codes.
 - Validation errors are user-friendly and consistent.
 - Hard delete confirmation enforced server-side.
-

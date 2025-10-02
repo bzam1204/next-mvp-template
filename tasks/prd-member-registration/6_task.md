@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 ---
 
 <task_context>
@@ -25,8 +25,8 @@ Wire application ports (use cases, queries) and infrastructure implementations i
 
 ## Subtasks
 
-- [ ] 6.1 Add container registrations for all ports and implementations
-- [ ] 6.2 Verify resolving ports from Server Actions
+- [x] 6.1 Add container registrations for all ports and implementations
+- [x] 6.2 Verify resolving ports from Server Actions
 
 ## Implementation Details
 

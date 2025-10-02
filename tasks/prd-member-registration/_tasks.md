@@ -43,9 +43,9 @@
 - [X] 2.0 Application: DTOs and write use cases
 - [X] 3.0 Application: Read queries (search/detail)
 - [X] 4.0 Persistence: Prisma schema + migration + indexes
-- [ ] 5.0 Infrastructure: Repository, UoW, EventBus
-- [ ] 6.0 DI: Container registrations for ports
-- [ ] 7.0 Controllers: Server Actions (CRUD, status)
+- [X] 5.0 Infrastructure: Repository, UoW, EventBus
+- [X] 6.0 DI: Container registrations for ports
+- [X] 7.0 Controllers: Server Actions (CRUD, status)
 - [ ] 8.0 Caching: QueryKeys + invalidations
 - [ ] 9.0 Hooks: React Query hooks (CRUD/search/detail)
 - [ ] 10.0 UI: Pages (list/detail/forms) + UX
