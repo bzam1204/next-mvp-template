@@ -1,13 +1,12 @@
 ---
 status: pending
 ---
-
 <task_context>
-<domain>engine/ui</domain>
-<type>implementation</type>
-<scope>core_feature</scope>
-<complexity>high</complexity>
-<dependencies>http_server</dependencies>
+`<domain>`src/app `</domain>`
+`<type>`implementation `</type>`
+`<scope>`core_feature `</scope>`
+`<complexity>`high `</complexity>`
+`<dependencies>`shadcn `</dependencies>`
 </task_context>
 
 # Task 10.0: UI Pages (List, Detail, Forms)
@@ -16,7 +15,7 @@ status: pending
 
 Build pages for member list with filters and pagination, member detail, and forms for create/update using Shadcn shell. Integrate hooks and ensure smooth UX with minimal unnecessary re-renders.
 
-<import>**MUST READ BEFORE STARTING** @.cursor/rules/critical-validation.mdc</import>
+<import>**MUST READ BEFORE STARTING** @rules/*.md </import>
 
 <requirements>
 - List supports filtering by name/profile and visibility; paginated results.
@@ -49,4 +48,3 @@ Tech Spec: UI components overview; Caching; Standards (avoid unnecessary re-rend
 
 - Flows: create, update, archive/restore, delete, classification change all reachable and functional.
 - Validation errors clear; 95th percentile list render ≤ 1.5s on dev data.
-

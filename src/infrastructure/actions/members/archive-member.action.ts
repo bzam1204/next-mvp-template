@@ -4,6 +4,8 @@ import ArchiveMemberUseCase from "@/application/use-cases/member/archive-member.
 
 import { resolve } from "@/infrastructure/container";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 import { ServiceTokens } from "@/shared/constants/service-constants";
 
 import { ensureMemberId } from "./validators";
@@ -20,4 +22,5 @@ export async function archiveMemberAction(input: ArchiveMemberActionInput): Prom
     const memberId = ensureMemberId(input.memberId);
     const useCase = resolve<ArchiveMemberUseCase>(ServiceTokens.ArchiveMemberUseCase);
     await useCase.execute({ memberId });
+    await invalidateMembersCache({ memberId });
 }

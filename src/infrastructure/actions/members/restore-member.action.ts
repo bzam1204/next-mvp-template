@@ -4,6 +4,8 @@ import RestoreMemberUseCase from "@/application/use-cases/member/restore-member.
 
 import { resolve } from "@/infrastructure/container";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 import { ServiceTokens } from "@/shared/constants/service-constants";
 
 import { ensureMemberId } from "./validators";
@@ -20,4 +22,5 @@ export async function restoreMemberAction(input: RestoreMemberActionInput): Prom
     const memberId = ensureMemberId(input.memberId);
     const useCase = resolve<RestoreMemberUseCase>(ServiceTokens.RestoreMemberUseCase);
     await useCase.execute({ memberId });
+    await invalidateMembersCache({ memberId });
 }

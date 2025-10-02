@@ -35,13 +35,11 @@ export default class PrismaMemberRepository implements MemberRepository {
 
   public async save(member: Member): Promise<Member> {
     const snapshot = member.toSnapshot();
-
     await this.prisma.member.upsert({
       where: { memberId: snapshot.memberId },
       create: this.mapToCreate(snapshot),
       update: this.mapToUpdate(snapshot),
     });
-
     return member;
   }
 

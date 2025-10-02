@@ -16,7 +16,7 @@ status: pending
 
 Implement the two-step confirmation UX for permanent delete and server-side enforcement that requires typing `DELETE {memberId}` exactly.
 
-<import>**MUST READ BEFORE STARTING** @.cursor/rules/critical-validation.mdc</import>
+<import>**MUST READ BEFORE STARTING** @rules/*.md </import>
 
 <requirements>
 - PRD R4.1–R4.3: irreversible delete with explicit typed confirmation; clear warnings.

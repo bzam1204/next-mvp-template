@@ -6,6 +6,8 @@ import UpdateMemberUseCase from "@/application/use-cases/member/update-member.us
 
 import { resolve } from "@/infrastructure/container";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 import { ServiceTokens } from "@/shared/constants/service-constants";
 import { MemberErrorCodes } from "@/shared/error-codes/member.error-codes";
 
@@ -67,6 +69,7 @@ export async function updateMemberAction(rawInput: UpdateMemberActionInput): Pro
     const useCase = resolve<UpdateMemberUseCase>(ServiceTokens.UpdateMemberUseCase);
     const normalized = normalizeUpdateInput(rawInput);
     const output = await useCase.execute(normalized);
+    await invalidateMembersCache({ memberId: output.id });
     return output;
 }
 

@@ -9,6 +9,8 @@ import { ServiceTokens } from "@/shared/constants/service-constants";
 
 import { ensureMemberClassification, ensureMemberId } from "./validators";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 export interface ChangeMemberClassificationActionInput {
     memberId?: string;
     classification?: string;
@@ -27,5 +29,6 @@ export async function changeMemberClassificationAction(input: ChangeMemberClassi
     );
 
     const output = await useCase.execute({ memberId, classification });
+    await invalidateMembersCache({ memberId: output.id });
     return output;
 }

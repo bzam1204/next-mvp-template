@@ -6,6 +6,8 @@ import RegisterMemberUseCase from "@/application/use-cases/member/register-membe
 
 import { resolve } from "@/infrastructure/container";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 import { ServiceTokens } from "@/shared/constants/service-constants";
 import { MemberErrorCodes } from "@/shared/error-codes/member.error-codes";
 
@@ -67,6 +69,7 @@ export async function registerMemberAction(rawInput: RegisterMemberActionInput):
     const normalized = normalizeRegisterInput(rawInput);
     const useCase = resolve<RegisterMemberUseCase>(ServiceTokens.RegisterMemberUseCase);
     const output = await useCase.execute(normalized);
+    await invalidateMembersCache({ memberId: output.id });
     return output;
 }
 

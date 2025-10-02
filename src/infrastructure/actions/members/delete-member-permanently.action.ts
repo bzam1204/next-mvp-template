@@ -9,6 +9,8 @@ import { MemberErrorCodes } from "@/shared/error-codes/member.error-codes";
 
 import { ensureMemberId, ensureNonEmptyString } from "./validators";
 
+import { invalidateMembersCache } from "@/infrastructure/cache/members-cache";
+
 export interface DeleteMemberPermanentlyActionInput {
     memberId?: string;
     confirm?: string;
@@ -30,4 +32,5 @@ export async function deleteMemberPermanentlyAction(
 
     const useCase = resolve<DeleteMemberPermanentlyUseCase>(ServiceTokens.DeleteMemberPermanentlyUseCase);
     await useCase.execute({ memberId, confirm });
+    await invalidateMembersCache({ memberId });
 }

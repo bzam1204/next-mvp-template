@@ -16,7 +16,7 @@ status: pending
 
 Create hooks to call Server Actions and manage caching for create/update/archive/restore/delete/classification, search, and detail retrieval.
 
-<import>**MUST READ BEFORE STARTING** @.cursor/rules/critical-validation.mdc</import>
+<import>**MUST READ BEFORE STARTING** @rules/*.md </import>
 
 <requirements>
 - No direct `fetch` in hooks (standards compliance).
