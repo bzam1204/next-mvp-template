@@ -17,10 +17,9 @@ export interface UpdateMemberInput {
   birthDate?: Date;
   reception?: MemberReception;
   celebrant?: string;
-  profession?: string;
+  professionOfFaithDate?: Date;
   placeOfBirth?: string;
   maritalStatus?: MemberMaritalStatus;
   baptizedInInfancy?: boolean;
   religiousBackground?: string;
 }
-

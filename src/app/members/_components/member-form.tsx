@@ -29,7 +29,7 @@ export interface MemberFormValues {
     birthDate: string;
     placeOfBirth: string;
     literacy: boolean;
-    profession: string;
+    professionOfFaithDate: string;
     celebrant: string;
     religiousBackground: string;
     receptionDate: string;
@@ -65,7 +65,7 @@ const EMPTY_FORM_VALUES: MemberFormValues = {
     birthDate: '',
     placeOfBirth: '',
     literacy: false,
-    profession: '',
+    professionOfFaithDate: '',
     celebrant: '',
     religiousBackground: '',
     receptionDate: '',
@@ -114,7 +114,6 @@ export function MemberForm({ mode, initialValues, onSubmit, submitLabel, busy = 
         const requiredTextFields: Array<[keyof MemberFormValues, string]> = [
             ['fullName', 'Nome completo é obrigatório.'],
             ['placeOfBirth', 'Naturalidade é obrigatória.'],
-            ['profession', 'Profissão é obrigatória.'],
             ['celebrant', 'Celebrante é obrigatório.'],
             ['religiousBackground', 'Antecedentes religiosos são obrigatórios.'],
             ['receptionLocation', 'Local de recepção é obrigatório.'],
@@ -134,6 +133,10 @@ export function MemberForm({ mode, initialValues, onSubmit, submitLabel, busy = 
 
         if (!form.receptionDate) {
             errors.push('Data de recepção é obrigatória.');
+        }
+
+        if (!form.professionOfFaithDate) {
+            errors.push('Data de Profissão de fé é obrigatória.');
         }
 
         if (!form.sex) {
@@ -310,6 +313,14 @@ export function MemberForm({ mode, initialValues, onSubmit, submitLabel, busy = 
                         checked={values.literacy}
                         disabled={busy}
                         onChange={handleInputChange}
+                        /**
+                         * todo: add scolarity 
+                         * search using perplexity mcp about how brasil is doing in terms of literacy and scolarity and create an field for scolarity. the database mus be updated too. scolarity must be an enum in the database. 
+                         * read the @rules to understand thet project and use context7 mcp to get fresh documentation
+                         * use also playwright mcp to validate changes
+                         * focus on your task
+                         * 
+                         */ 
                         label="Sabe ler e escrever"
                     />
                     <FieldCheckbox
@@ -329,11 +340,12 @@ export function MemberForm({ mode, initialValues, onSubmit, submitLabel, busy = 
                     <p className="text-sm text-gray-500">Informações utilizadas para recepção e estatísticas.</p>
                 </header>
                 <div className="grid gap-4 md:grid-cols-2">
-                    <Field label="Profissão" htmlFor="profession" required>
+                    <Field label="Data de Profissão de fé" htmlFor="professionOfFaithDate" required>
                         <Input
-                            id="profession"
-                            name="profession"
-                            value={values.profession}
+                            id="professionOfFaithDate"
+                            name="professionOfFaithDate"
+                            type="date"
+                            value={values.professionOfFaithDate}
                             onChange={handleInputChange}
                             disabled={busy}
                         />

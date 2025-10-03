@@ -64,7 +64,7 @@ export function mapPrismaMemberToView(record: PrismaMemberRecord): MemberView {
             location: record.receptionLocation ?? "",
         },
         celebrant: record.celebrant ?? "",
-        profession: record.profession ?? "",
+        professionOfFaithDate: toIsoString(record.professionOfFaithDate ?? record.receptionDate),
         placeOfBirth: record.placeOfBirth ?? "",
         baptizedInInfancy: record.baptizedInInfancy ?? false,
         religiousBackground: record.religiousBackground ?? "",

@@ -53,7 +53,7 @@ export interface RegisterMemberActionInput {
     birthDate?: DateLike;
     reception?: ReceptionLike;
     celebrant?: string;
-    profession?: string;
+    professionOfFaithDate?: DateLike;
     placeOfBirth?: string;
     maritalStatus?: string;
     classification?: string;
@@ -82,7 +82,7 @@ function normalizeRegisterInput(raw: RegisterMemberActionInput): CreateMemberInp
     const baptizedInInfancy = parseBoolean(raw.baptizedInInfancy, "Member baptizedInInfancy must be true or false.");
     const religiousBackground = ensureNonEmptyString(raw.religiousBackground, "Member religious background is required.");
     const placeOfBirth = ensureNonEmptyString(raw.placeOfBirth, "Member place of birth is required.");
-    const profession = ensureNonEmptyString(raw.profession, "Member profession is required.");
+    const professionOfFaithDate = parseDate(raw.professionOfFaithDate, MemberErrorCodes.INVALID_RECEPTION_DATE);
     const celebrant = ensureNonEmptyString(raw.celebrant, "Member celebrant is required.");
     const fullName = ensureNonEmptyString(raw.fullName, MemberErrorCodes.INVALID_FULL_NAME);
     const address = buildMemberAddress(raw.address);
@@ -95,7 +95,7 @@ function normalizeRegisterInput(raw: RegisterMemberActionInput): CreateMemberInp
         birthDate,
         literacy,
         celebrant,
-        profession,
+        professionOfFaithDate,
         placeOfBirth,
         religiousBackground,
         maritalStatus,

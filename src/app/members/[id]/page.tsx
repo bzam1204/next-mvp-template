@@ -171,27 +171,31 @@ export default function MemberDetailPage() {
                                     {member.maritalStatus === 'single'
                                         ? 'Solteiro(a)'
                                         : member.maritalStatus === 'married'
-                                        ? 'Casado(a)'
-                                        : member.maritalStatus === 'divorced'
-                                        ? 'Divorciado(a)'
-                                        : 'Viúvo(a)'}
+                                            ? 'Casado(a)'
+                                            : member.maritalStatus === 'divorced'
+                                                ? 'Divorciado(a)'
+                                                : 'Viúvo(a)'}
                                 </InfoField>
                                 <InfoField label="Batizado na infância">{member.baptizedInInfancy ? 'Sim' : 'Não'}</InfoField>
                             </div>
 
                             <div className="grid gap-4 md:grid-cols-2">
-                                <InfoField label="Profissão">{member.profession}</InfoField>
+                                //todo: adicionar data do batismo nos dados a seerem salvos e editados sobre o membro. a ipb quer saber sobre o a data que o membro foi batizado.isso tem um impacto desde o banco ao front. cabe uma analise detalhada.
+                                <InfoField label="Data de Profissão de fé">
+                                    {member.professionOfFaithDate ? formatDate(member.professionOfFaithDate) : '—'}
+                                </InfoField>
                                 <InfoField label="Celebrante">{member.celebrant}</InfoField>
                                 <InfoField label="Antecedentes religiosos">{member.religiousBackground}</InfoField>
                                 <InfoField label="Recepção">
                                     <div className="flex flex-col">
                                         <span>{formatDate(member.reception?.date)}</span>
                                         <span className="text-xs text-gray-500">
+                                            //todo: adicionar opçãos de 'profissão de fé e batismo', isso tem um impacto desde o banco ao front. cabe uma analise detalhada.
                                             {member.reception?.mode === 'profession_of_faith'
                                                 ? 'Profissão de fé'
                                                 : member.reception?.mode === 'transfer'
-                                                ? 'Transferência'
-                                                : 'Restauração'}
+                                                    ? 'Transferência'
+                                                    : 'Restauração'}
                                         </span>
                                     </div>
                                 </InfoField>

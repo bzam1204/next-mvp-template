@@ -28,7 +28,7 @@ export class RegisterMemberUseCase {
         birthDate: input.birthDate,
         reception: input.reception,
         celebrant: input.celebrant,
-        profession: input.profession,
+        professionOfFaithDate: input.professionOfFaithDate,
         placeOfBirth: input.placeOfBirth,
         maritalStatus: input.maritalStatus,
         classification: input.classification,
@@ -46,4 +46,3 @@ export class RegisterMemberUseCase {
 }
 
 export default RegisterMemberUseCase;
-

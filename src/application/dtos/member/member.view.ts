@@ -9,7 +9,7 @@ export interface MemberView {
   birthDate: string;
   createdAt: string;
   celebrant: string;
-  profession: string;
+  professionOfFaithDate: string;
   placeOfBirth: string;
   //todo: add 'união estável' option
   maritalStatus: 'single' | 'married' | 'divorced' | 'widowed';
@@ -31,4 +31,3 @@ export interface MemberView {
     location: string;
   };
 }
-

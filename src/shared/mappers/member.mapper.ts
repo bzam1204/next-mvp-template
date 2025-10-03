@@ -31,11 +31,10 @@ export default class MemberMapper {
         location: s.reception.location,
       },
       celebrant: s.celebrant,
-      profession: s.profession,
+      professionOfFaithDate: s.professionOfFaithDate.toISOString(),
       placeOfBirth: s.placeOfBirth,
       baptizedInInfancy: s.baptizedInInfancy,
       religiousBackground: s.religiousBackground,
     };
   }
 }
-

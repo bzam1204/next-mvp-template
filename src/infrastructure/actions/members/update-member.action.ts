@@ -54,7 +54,7 @@ export interface UpdateMemberActionInput {
     birthDate?: DateLike;
     reception?: ReceptionLike;
     celebrant?: string | null;
-    profession?: string | null;
+    professionOfFaithDate?: DateLike;
     placeOfBirth?: string | null;
     maritalStatus?: string | null;
     baptizedInInfancy?: BooleanLike;
@@ -131,8 +131,8 @@ function normalizeUpdateInput(raw: UpdateMemberActionInput): UpdateMemberInput {
         normalized.celebrant = ensureNonEmptyString(raw.celebrant, "Member celebrant is required.");
     }
 
-    if (hasOwn(raw, "profession")) {
-        normalized.profession = ensureNonEmptyString(raw.profession, "Member profession is required.");
+    if (hasOwn(raw, "professionOfFaithDate")) {
+        normalized.professionOfFaithDate = parseOptionalDate(raw.professionOfFaithDate, MemberErrorCodes.INVALID_RECEPTION_DATE);
     }
 
     if (hasOwn(raw, "placeOfBirth")) {

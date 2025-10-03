@@ -17,11 +17,10 @@ export interface CreateMemberInput {
   birthDate: Date;
   reception: MemberReception;
   celebrant: string;
-  profession: string;
+  professionOfFaithDate: Date;
   placeOfBirth: string;
   maritalStatus: MemberMaritalStatus;
   classification: MemberClassification;
   baptizedInInfancy: boolean;
   religiousBackground: string;
 }
-

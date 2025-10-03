@@ -45,7 +45,7 @@ export interface MemberSnapshot {
   birthDate: Date;
   celebrant: string;
   reception: MemberReception;
-  profession: string;
+  professionOfFaithDate: Date;
   placeOfBirth: string;
   maritalStatus: MemberMaritalStatus;
   classification: MemberClassification;
@@ -65,7 +65,7 @@ export interface MemberCreateProps {
   birthDate: Date;
   celebrant: string;
   reception: MemberReception;
-  profession: string;
+  professionOfFaithDate: Date;
   placeOfBirth: string;
   maritalStatus: MemberMaritalStatus;
   classification: MemberClassification;
@@ -84,7 +84,7 @@ export interface MemberUpdateProps {
   celebrant?: string;
   birthDate?: Date;
   reception?: MemberReception;
-  profession?: string;
+  professionOfFaithDate?: Date;
   placeOfBirth?: string;
   maritalStatus?: MemberMaritalStatus;
   baptizedInInfancy?: boolean;
@@ -106,7 +106,7 @@ export class Member {
   private _reception: MemberReception;
   private _celebrant: string;
   private _birthDate: Date;
-  private _profession: string;
+  private _professionOfFaithDate: Date;
   private _placeOfBirth: string;
   private _maritalStatus: MemberMaritalStatus;
   private _classification: MemberClassification;
@@ -127,7 +127,7 @@ export class Member {
     this._celebrant = snapshot.celebrant;
     this._createdAt = snapshot.createdAt;
     this._birthDate = snapshot.birthDate;
-    this._profession = snapshot.profession;
+    this._professionOfFaithDate = snapshot.professionOfFaithDate;
     this._placeOfBirth = snapshot.placeOfBirth;
     this._maritalStatus = snapshot.maritalStatus;
     this._classification = snapshot.classification;
@@ -148,7 +148,7 @@ export class Member {
         ['birthDate', birthDate],
         ['reception', props.reception],
         ['celebrant', props.celebrant],
-        ['profession', props.profession],
+        ['professionOfFaithDate', props.professionOfFaithDate],
         ['placeOfBirth', props.placeOfBirth],
         ['maritalStatus', props.maritalStatus],
         ['baptizedInInfancy', props.baptizedInInfancy],
@@ -161,6 +161,7 @@ export class Member {
         throw new InvalidOperationException(MemberErrorCodes.MISSING_COMMUNICANT_REQUIRED_FIELDS);
       }
       Member.assertValidDate(props.reception.date, MemberErrorCodes.INVALID_RECEPTION_DATE);
+      Member.assertValidDate(props.professionOfFaithDate, MemberErrorCodes.INVALID_RECEPTION_DATE);
     }
 
     const member = new Member({
@@ -177,7 +178,7 @@ export class Member {
       reception: props.reception,
       celebrant: props.celebrant,
       createdAt: new Date(),
-      profession: props.profession,
+      professionOfFaithDate: props.professionOfFaithDate,
       placeOfBirth: props.placeOfBirth,
       maritalStatus: props.maritalStatus,
       classification,
@@ -236,7 +237,10 @@ export class Member {
     if (props.sex !== undefined && props.sex !== this._sex) { this._sex = props.sex; changed = true; }
     if (props.religiousBackground !== undefined && props.religiousBackground !== this._religiousBackground) { this._religiousBackground = props.religiousBackground; changed = true; }
     if (props.maritalStatus !== undefined && props.maritalStatus !== this._maritalStatus) { this._maritalStatus = props.maritalStatus; changed = true; }
-    if (props.profession !== undefined && props.profession !== this._profession) { this._profession = props.profession; changed = true; }
+    if (props.professionOfFaithDate !== undefined) {
+      const pf = Member.assertValidDate(props.professionOfFaithDate, MemberErrorCodes.INVALID_RECEPTION_DATE);
+      if (pf.getTime() !== this._professionOfFaithDate.getTime()) { this._professionOfFaithDate = pf; changed = true; }
+    }
     if (props.address !== undefined) { this._address = props.address; changed = true; }
     if (props.literacy !== undefined && props.literacy !== this._literacy) { this._literacy = props.literacy; changed = true; }
     if (props.baptizedInInfancy !== undefined && props.baptizedInInfancy !== this._baptizedInInfancy) { this._baptizedInInfancy = props.baptizedInInfancy; changed = true; }
@@ -289,7 +293,7 @@ export class Member {
       reception: this._reception,
       celebrant: this._celebrant,
       createdAt: this._createdAt,
-      profession: this._profession,
+      professionOfFaithDate: this._professionOfFaithDate,
       placeOfBirth: this._placeOfBirth,
       maritalStatus: this._maritalStatus,
       classification: this._classification,
@@ -321,7 +325,7 @@ export class Member {
   public get celebrant(): string { return this._celebrant; }
   public get createdAt(): Date { return this._createdAt; }
   public get birthDate(): Date { return this._birthDate; }
-  public get profession(): string { return this._profession; }
+  public get professionOfFaithDate(): Date { return this._professionOfFaithDate; }
   public get placeOfBirth(): string { return this._placeOfBirth; }
   public get maritalStatus(): MemberMaritalStatus { return this._maritalStatus; }
   public get classification(): MemberClassification { return this._classification; }
